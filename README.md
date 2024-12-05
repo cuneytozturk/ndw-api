@@ -1,0 +1,1 @@
+keytool -import -alias example -keystore  "D:\tool\jdk-17\lib\security\cacerts" -file data.ndw.nu.der
