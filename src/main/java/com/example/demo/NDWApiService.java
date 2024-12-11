@@ -8,8 +8,8 @@ import reactor.core.publisher.Mono;
 @Service
 public class NDWApiService {
 
-    public String getTrafficSignsData(){
-        WebClient client = WebClient.create("https://data.ndw.nu/api/rest/static-road-data/traffic-signs/v4/current-state?roadSectionId=329419005");
+    public String getTrafficSignsData(int roadSectionId){
+        WebClient client = WebClient.create("https://data.ndw.nu/api/rest/static-road-data/traffic-signs/v4/current-state?roadSectionId="+roadSectionId);
         Mono<String> result = client.get().retrieve().bodyToMono(String.class);
         return result.block();
     }
