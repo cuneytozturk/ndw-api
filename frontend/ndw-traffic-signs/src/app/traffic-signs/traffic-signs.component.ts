@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapComponent } from '../map/map.component';
 import { TrafficSignsService } from '../traffic-signs.service';
 
 @Component({
   selector: 'app-traffic-signs',
   templateUrl: './traffic-signs.component.html',
-  imports: [CommonModule, MapComponent],
+  imports: [CommonModule],
   styleUrls: ['./traffic-signs.component.css']
 })
 export class TrafficSignsComponent implements OnInit {

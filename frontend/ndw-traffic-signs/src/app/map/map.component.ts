@@ -1,42 +1,66 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { TrafficSignsComponent } from '../traffic-signs/traffic-signs.component';
+import { TrafficSignsService } from '../traffic-signs.service';
 import * as L from 'leaflet';
 
 @Component({
-  selector: 'app-map',
+  selector: 'map',
   templateUrl: './map.component.html',
+  imports: [TrafficSignsComponent],
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterViewInit {
   private map!: L.Map
   markers: L.Marker[] = [
-    L.marker([31.9539, 35.9106]), // Amman
-    L.marker([32.5568, 35.8469]) // Irbid
   ];
+  trafficSigns: any[] = [];  
 
-  constructor() { }
+
+  constructor(private trafficSignsService: TrafficSignsService) { }
 
   ngOnInit() {
+    
   }
 
   ngAfterViewInit() {
     this.initializeMap();
-    this.addMarkers();
+    this.addTrafficSigns();
+
   }
 
 
   private initializeMap() {
     const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    this.map = L.map('map').setView([52.5746, 5.5323], 15); // Center of the map
-
+    this.map = L.map('map').setView([52.574556780879,5.5322484346456], 15);
     L.tileLayer(baseMapURl).addTo(this.map);
 
   }
 
+  private addTrafficSigns(): void {
+    this.trafficSignsService.getTrafficSigns().subscribe(
+      (data) => {
+        this.trafficSigns = data.features;
+  
+        this.trafficSigns.forEach((sign) => {
+          const coordinates : L.LatLngTuple = [
+            sign.geometry.coordinates[1], 
+            sign.geometry.coordinates[0], 
+          ];
+          const marker = L.marker(coordinates).addTo(this.map);
+          marker.bindPopup(
+            `<b>RVV Code:</b> ${sign.properties.rvvCode}<br><b>Road Name:</b> ${sign.properties.roadName}`
+          );
+          this.markers.push(marker);
+          console.log(`Marker added at: ${coordinates}`);
 
-  private addMarkers() {
-    // Add your markers to the map
-    this.markers.forEach(marker => marker.addTo(this.map));
+          
+        });
+      },
+      (error) => {
+        console.error('Error fetching traffic signs data', error);
+      }
+    );
   }
-
+  
   
 }

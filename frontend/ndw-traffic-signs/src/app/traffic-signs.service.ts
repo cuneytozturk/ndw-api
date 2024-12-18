@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TrafficSignsService {
-  private apiUrl = 'http://localhost:8080/traffic-signs/600544219';
+  private apiUrl = 'http://localhost:8080/traffic-signs/329419005';
 
   constructor(private http: HttpClient) { }
 

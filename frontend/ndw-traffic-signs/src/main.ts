@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { TrafficSignsComponent } from './app/traffic-signs/traffic-signs.component';
+import { MapComponent } from './app/map/map.component';
 import { provideHttpClient } from '@angular/common/http';
 
-bootstrapApplication(TrafficSignsComponent, {
+bootstrapApplication(MapComponent, {
   providers: [provideHttpClient()],
 }).catch((err) => console.error(err));
