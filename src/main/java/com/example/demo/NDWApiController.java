@@ -36,7 +36,7 @@ public class NDWApiController {
 //        }
 
     @GetMapping("/{countyCode}")
-    public FeatureCollection getTSM(@PathVariable ("countyCode") String countyCode) {
+    public List<CoordinateDTO> getTSM(@PathVariable ("countyCode") String countyCode) {
         return ndwApiService.getTrafficSignsByCounty(countyCode);
     }
 

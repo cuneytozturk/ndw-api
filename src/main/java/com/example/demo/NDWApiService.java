@@ -6,6 +6,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class NDWApiService {
 
@@ -17,7 +19,7 @@ public class NDWApiService {
         return result.block();
     }
 
-    public FeatureCollection getTrafficSignsByCounty(String countyCode){
+    public List<CoordinateDTO> getTrafficSignsByCounty(String countyCode){
       return restTemplate.getForObject("https://data.ndw.nu/api/rest/static-road-data/traffic-signs/v4/current-state?countyCode="+countyCode, FeatureCollection.class);
     }
 }
