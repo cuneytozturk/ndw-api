@@ -1,4 +1,5 @@
 package com.example.demo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +37,9 @@ public class NDWApiController {
 //        }
 
     @GetMapping("/{countyCode}")
-    public List<CoordinateDTO> getTSM(@PathVariable ("countyCode") String countyCode) {
-        return ndwApiService.getTrafficSignsByCounty(countyCode);
+    public List<CoordinateDTO> getTSM(@PathVariable ("countyCode") String countyCode) throws JsonProcessingException {
+        //return ndwApiService.getTrafficSignsByCounty(countyCode);
+        return ndwApiService.getCoordinatesAndRvvCodes(countyCode);
     }
 
 
